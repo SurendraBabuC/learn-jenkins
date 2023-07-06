@@ -6,9 +6,15 @@ pipeline{
         }
     }
 
+    triggers { pollSCM('H/1 * * * *') }
+
     options {
      ansicolor('xterm')
     }
+
+     parameters {
+      string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+     }
 
     environment {
      SAMPLE_URL = "example.com"
@@ -21,6 +27,7 @@ pipeline{
                     sh 'echo Hello World'
                     sh 'echo Hello Universe'
                     sh 'echo ${SAMPLE_URL}'
+                    sh 'echo PERSON - ${PERSON}'
                 }
         }
     }
