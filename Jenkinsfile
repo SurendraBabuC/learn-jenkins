@@ -23,12 +23,26 @@ pipeline{
     stages {
 
         stage('One') {
+          input {
+            message "Do you Approve?"
+            ok "Yes"
+          }
+
                 steps{
                     sh 'echo Hello World'
                     sh 'echo Hello Universe'
                     sh 'echo ${SAMPLE_URL}'
                     sh 'echo PERSON - ${PERSON}'
                 }
+        }
+
+        stage('Two') {
+          when {
+            GIT_BRANCH == "origin/test"
+          }
+         steps {
+          sh 'env'
+         }
         }
     }
     post {
